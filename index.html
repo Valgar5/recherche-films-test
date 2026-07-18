@@ -382,11 +382,11 @@ posts.length
 return posts.map(post=>({
 
 title:{
-$t:post.title.rendered
+$t: post.title?.rendered || "Sans titre"
 },
 
 summary:{
-$t:post.excerpt.rendered
+$t: (post.excerpt?.rendered || "") + " " + (post.content?.rendered || "")
 },
 
 link:[
