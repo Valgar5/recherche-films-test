@@ -184,12 +184,13 @@ const blogs = [
         url: "https://nenard1974.blogspot.com"
     },
 
-/*
+
     {
         nom: "hdmovpremier",
-        url: "https://hdmovpremier.toile-libre.org"
+        url: "https://hdmovpremier.toile-libre.org",
+        type: "wordpress"
     },
-*/
+
 
     {
         nom: "HD PREMIERE",
@@ -308,6 +309,50 @@ resolve({
 
 
 };
+
+    async function chargerWordPress(blog, terme){
+
+    const url =
+    blog.url +
+    "/wp-json/wp/v2/posts?search=" +
+    encodeURIComponent(terme) +
+    "&per_page=100";
+
+
+    const reponse = await fetch(url);
+
+    if(!reponse.ok){
+
+        throw new Error(
+            "Impossible de charger " + blog.nom
+        );
+
+    }
+
+
+    const posts = await reponse.json();
+
+
+    return posts.map(post => ({
+
+        title:{
+            $t: post.title.rendered
+        },
+
+        summary:{
+            $t: post.excerpt.rendered
+        },
+
+        link:[
+            {
+                rel:"alternate",
+                href:post.link
+            }
+        ]
+
+    }));
+
+}
 
 
 script.onerror=function(){
@@ -451,9 +496,23 @@ async function chercher(){
 
     const listes = await Promise.all(
 
-        blogs.map(blog => chargerTout(blog))
+    blogs.map(blog => {
 
-    );
+        if(blog.type === "wordpress"){
+
+            return chargerWordPress(blog, terme);
+
+        }
+
+        else{
+
+            return chargerTout(blog);
+
+        }
+
+    })
+
+);
 
 
     status.innerHTML =
