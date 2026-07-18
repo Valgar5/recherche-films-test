@@ -257,6 +257,24 @@ return (texte || "")
 
 return new Promise((resolve,reject)=>{
 
+    let termine = false;
+
+const timer = setTimeout(()=>{
+
+    if(!termine){
+
+        termine = true;
+
+        console.log("TIMEOUT :", blog.nom);
+
+        resolve({
+            articles:[],
+            total:0
+        });
+
+    }
+
+},8000);
 
 const callback =
 "bloggerCallback" +
@@ -268,6 +286,11 @@ const script=document.createElement("script");
 
 
 window[callback]=function(data){
+    if(termine) return;
+
+termine = true;
+
+clearTimeout(timer);
 
 
 delete window[callback];
@@ -293,6 +316,11 @@ data.feed?.openSearch$totalResults?.$t || 0
 
 
 script.onerror=function(){
+    if(termine) return;
+
+termine = true;
+
+clearTimeout(timer);
 
 delete window[callback];
 
