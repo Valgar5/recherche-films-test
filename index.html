@@ -343,15 +343,7 @@ encodeURIComponent(terme) +
 console.log(url);
 
 
-const url =
 
-blog.url +
-
-"/wp-json/wp/v2/posts?search=" +
-
-encodeURIComponent(terme) +
-
-"&per_page=100";
 
 
 
@@ -361,9 +353,7 @@ const reponse = await fetch(url);
 
 if(!reponse.ok){
 
-throw new Error(
-"Impossible de charger " + blog.nom
-);
+return [];
 
 }
 
