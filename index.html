@@ -332,7 +332,8 @@ document.body.appendChild(script);
 
 async function chargerWordPress(blog, terme){
 
-    console.log("TEST WORDPRESS :", blog.nom);
+console.log("TEST WORDPRESS :", blog.nom);
+
 
 const url =
 blog.url +
@@ -340,54 +341,79 @@ blog.url +
 encodeURIComponent(terme) +
 "&per_page=100";
 
+
 console.log(url);
 
 
-
-
+try{
 
 
 const reponse = await fetch(url);
 
 
+console.log(
+"REPONSE WORDPRESS :",
+reponse.status
+);
+
 
 if(!reponse.ok){
+
+console.log(
+"Erreur HTTP",
+reponse.status
+);
 
 return [];
 
 }
 
 
-
 const posts = await reponse.json();
+
+
+console.log(
+"ARTICLES TROUVES WORDPRESS :",
+posts.length
+);
 
 
 
 return posts.map(post=>({
 
-
 title:{
 $t:post.title.rendered
 },
-
 
 summary:{
 $t:post.excerpt.rendered
 },
 
-
 link:[
-
 {
 rel:"alternate",
 href:post.link
 }
-
 ]
-
 
 }));
 
+
+}
+
+catch(e){
+
+
+console.log(
+"ERREUR WORDPRESS :",
+e
+);
+
+
+return [];
+
+
+}
 
 }
 
