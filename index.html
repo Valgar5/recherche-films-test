@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Moteur films Blogger</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    max-width:900px;
+    margin:40px auto;
+    background:#111;
+    color:#eee;
+}
+
+h1{
+    color:#f5c542;
+}
+
+input{
+    width:70%;
+    padding:12px;
+    font-size:18px;
+}
+
+button{
+    padding:12px 18px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.resultat{
+    margin-top:20px;
+    padding:15px;
+    background:#222;
+    border-radius:8px;
+}
+
+.blog{
+    color:#f5c542;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+    .compteur{
+    color:#7cff7c;
+    font-weight:bold;
+    margin-left:10px;
+}
+
+.film{
+    margin-top:8px;
+    padding:10px;
+    background:#1a1a1a;
+    border-radius:5px;
+}
+
+.film a{
+    color:#7ec8ff;
+    font-size:18px;
+}
+
+a{
+    color:#7ec8ff;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+#status{
+    margin-top:20px;
+    color:#9ad1ff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Recherche films</h1>
+
+<input
+id="recherche"
+placeholder="Titre du film"
+onkeydown="if(event.key==='Enter') chercher();">
+
+<button onclick="chercher()">
+Rechercher
+</button>
+
+<div id="status"></div>
+
+<div id="resultats"></div>
+
+<script>
+
+const MAX_RESULTS = 50;
+
+const blogs = [
+
+    {
+        nom: "asian express",
+        url: "https://billyboy2016.blogspot.com"
+    },
+
+    {
+        nom: "Au palace ce soir",
+        url: "https://aupalacecesoir.blogspot.com"
+    },
+
+    {
+        nom: "LE BIS FAIT SON CINÉMA",
+        url: "https://cineseance.blogspot.com"
+    },
+
+    {
+        nom: "Blog de CarmeloMike : Restauration en tout genre",
+        url: "https://carmelomike.blogspot.com"
+    },
+
+/*
+    {
+        nom: "bmoviesblog",
+        url: "https://bmoviesblog.wordpress.com"
+    },
+*/
+
+    {
+        nom: "BUDDY MOVIE REPACK",
+        url: "https://buddy-movierepack.blogspot.com"
+    },
+
+    {
+        nom: "Bunker des inédits",
+        url: "https://bunker-des-inedits.blogspot.com"
+    },
+
+    {
+        nom: "Les Chroniques d'Atreyu",
+        url: "https://atreyucinema.blogspot.com"
+    },
+
+    {
+        nom: "Ciné-Bis-Art",
+        url: "https://humungus-cinebisart.blogspot.com"
+    },
+
+    /*{
+        nom: "Un Cinéma Respecté by DVD2FAN",
+        url: "https://cinerespect.blogspot.com"
+    },
+    */
+
+    {
+        nom: "La Cinémathèque du Bis",
+        url: "https://lacinemathequedubis.blogspot.com"
+    },
+
+    {
+        nom: "Cineseptbis",
+        url: "https://cineseptbis.blogspot.com"
+    },
+
+    {
+        nom: "CONTREBANDE VHS",
+        url: "https://contrebandevhs.blogspot.com"
+    },
+
+    {
+        nom: "La crypte du Repack",
+        url: "https://lacryptedurepack.blogspot.com"
+    },
+
+    {
+        nom: "four tous 2",
+        url: "https://nenard1974.blogspot.com"
+    },
+
+/*
+    {
+        nom: "hdmovpremier",
+        url: "https://hdmovpremier.toile-libre.org"
+    },
+*/
+
+    {
+        nom: "HD PREMIERE",
+        url: "https://hdmoviespremier.blogspot.com"
+    },
+
+    {
+        nom: "Indianagilles",
+        url: "https://indianagilles.blogspot.com"
+    },
+
+    {
+        nom: "Les inédits du cinema bis en VOSTFR",
+        url: "https://legrenierducinemabis.blogspot.com"
+    },
+
+    {
+        nom: "Kevenz Repack",
+        url: "https://kevenzrepack.blogspot.com"
+    },
+
+    {
+        nom: "le paradis du cinéphile",
+        url: "https://leparadisdufilm.blogspot.com"
+    },
+    {
+        nom: "le steadyblog",
+        url: "https://steadyleblog.blogspot.com"
+    },
+
+    {
+        nom: "Supercalifragilisticexpialidocious",
+        url: "https://radisnoiretblancetencouleur.blogspot.com"
+    },
+
+    {
+        nom: "La télé d'avant",
+        url: "https://teledavant.blogspot.com"
+    },
+
+    {
+        nom: "Le Temple Du Film",
+        url: "https://filmdutemple.blogspot.com"
+    },
+
+    {
+        nom: "Terence Hill Collection",
+        url: "https://terencehillcollection.blogspot.com"
+    },
+
+    {
+        nom: "L'Univers du Fantastique et de la Science-Fiction",
+        url: "https://muaddib-sci-fi.blogspot.com"
+    },
+
+    {
+        nom: "Warning Zone",
+        url: "https://stalkerjany.blogspot.com"
+    }
+
+// ajouter ici d'autres blogs
+
+];
+
+
+const cache = {};
+
+
+function nettoyer(texte){
+
+return (texte || "")
+
+.toLowerCase()
+
+.normalize("NFD")
+
+.replace(/[\u0300-\u036f]/g,"");
+
+}
+
+
+function chargerFlux(blog,start){
+
+return new Promise((resolve,reject)=>{
+
+
+const callback =
+"bloggerCallback" +
+Date.now() +
+Math.random().toString(36).substring(2);
+
+
+const script=document.createElement("script");
+
+
+window[callback]=function(data){
+
+
+delete window[callback];
+
+script.remove();
+
+
+const articles = data.feed?.entry || [];
+
+
+resolve({
+
+    articles,
+
+    total: Number(
+        data.feed?.openSearch$totalResults?.$t || 0
+    )
+
+});
+
+
+};
+
+
+script.onerror=function(){
+
+
+delete window[callback];
+
+script.remove();
+
+
+reject(
+    new Error("Impossible de charger "+blog.nom)
+);
+
+
+};
+
+
+script.src =
+
+blog.url+
+
+"/feeds/posts/default?alt=json-in-script"+
+
+"&max-results="+MAX_RESULTS+
+
+"&start-index="+start+
+
+"&callback="+callback;
+
+
+document.body.appendChild(script);
+
+
+});
+
+
+}
+
+
+
+async function chargerTout(blog){
+
+
+    // Utilise le cache si le blog a déjà été chargé
+
+    if(cache[blog.nom]){
+
+        return cache[blog.nom];
+
+    }
+
+
+    let tous = [];
+
+    let index = 1;
+
+    let total = Infinity;
+
+
+
+    while(index <= total){
+
+
+        const page = await chargerFlux(blog,index);
+
+
+        tous.push(...page.articles);
+
+
+        total = page.total;
+
+
+        console.log(
+            blog.nom,
+            tous.length,
+            "/",
+            total
+        );
+
+
+        // Dernière page
+
+        if(page.articles.length === 0){
+
+            break;
+
+        }
+
+
+        index += MAX_RESULTS;
+
+
+    }
+
+
+    cache[blog.nom] = tous;
+
+
+    return tous;
+
+
+}
+
+
+
+async function chercher(){
+
+
+    const terme = document
+        .getElementById("recherche")
+        .value
+        .trim();
+
+
+
+    if(!terme){
+
+        return;
+
+    }
+
+
+
+    const status =
+        document.getElementById("status");
+
+
+    const resultat =
+        document.getElementById("resultats");
+
+
+
+    resultat.innerHTML = "";
+
+
+    status.innerHTML =
+        "Chargement des blogs...";
+
+
+
+    const listes = await Promise.all(
+
+        blogs.map(blog => chargerTout(blog))
+
+    );
+
+
+    status.innerHTML =
+        "Recherche en cours...";
+
+
+
+    let html = "";
+
+
+
+    const mots = nettoyer(terme)
+
+    .split(/\s+/)
+
+    .filter(m => m.length > 0);
+
+    blogs.forEach((blog,index)=>{
+
+
+        const articles = listes[index];
+
+
+        const trouves = articles.filter(article=>{
+
+
+            let titre =
+                article.title?.$t || "";
+
+
+            let contenu =
+                article.summary?.$t || "";
+
+
+
+            let texte =
+                titre + " " + contenu;
+
+
+
+            if(article.category){
+
+
+                texte += " " +
+                    article.category
+                    .map(c=>c.term)
+                    .join(" ");
+
+
+            }
+
+
+
+            const texteNettoye =
+                nettoyer(texte);
+
+
+
+            return mots.every(
+                mot => texteNettoye.includes(mot)
+            );
+
+
+        });
+
+
+
+        if(trouves.length){
+
+html += `
+<div class="resultat">
+
+<div class="blog">
+${blog.nom}
+<span class="compteur">
+(${trouves.length} résultat(s))
+</span>
+</div>
+
+`;
+
+}
+
+
+trouves.forEach(article=>{
+
+
+    let lien = "";
+
+
+    if(article.link){
+
+        article.link.forEach(l=>{
+
+            if(l.rel==="alternate"){
+
+                lien = l.href;
+
+            }
+
+        });
+
+    }
+
+
+    html += `
+
+<div class="film">
+
+<a href="${lien}" target="_blank">
+${article.title?.$t || "Sans titre"}
+</a>
+
+</div>
+
+`;
+
+});
+
+
+if(trouves.length){
+
+html += `
+</div>
+`;
+
+}
+
+
+
+    });
+
+
+
+
+    status.innerHTML =
+
+        "Terminé — " +
+
+        listes.reduce(
+            (total,articles)=>
+            total+articles.length,
+            0
+        ) +
+
+        " articles indexés";
+
+
+
+
+    resultat.innerHTML =
+
+        html ||
+
+        "<div class='resultat'>Aucun résultat.</div>";
+
+
+
+}
+
+
+</script>
+
+
+</body>
+
+
+</html>
