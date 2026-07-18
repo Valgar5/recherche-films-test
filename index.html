@@ -47,7 +47,7 @@ button{
     margin-bottom:8px;
 }
 
-    .compteur{
+.compteur{
     color:#7cff7c;
     font-weight:bold;
     margin-left:10px;
@@ -104,154 +104,139 @@ Rechercher
 
 const MAX_RESULTS = 50;
 
+
 const blogs = [
 
-    {
-        nom: "asian express",
-        url: "https://billyboy2016.blogspot.com"
-    },
+{
+nom:"asian express",
+url:"https://billyboy2016.blogspot.com"
+},
 
-    {
-        nom: "Au palace ce soir",
-        url: "https://aupalacecesoir.blogspot.com"
-    },
+{
+nom:"Au palace ce soir",
+url:"https://aupalacecesoir.blogspot.com"
+},
 
-    {
-        nom: "LE BIS FAIT SON CINÉMA",
-        url: "https://cineseance.blogspot.com"
-    },
+{
+nom:"LE BIS FAIT SON CINÉMA",
+url:"https://cineseance.blogspot.com"
+},
 
-    {
-        nom: "Blog de CarmeloMike : Restauration en tout genre",
-        url: "https://carmelomike.blogspot.com"
-    },
+{
+nom:"Blog de CarmeloMike : Restauration en tout genre",
+url:"https://carmelomike.blogspot.com"
+},
 
-/*
-    {
-        nom: "bmoviesblog",
-        url: "https://bmoviesblog.wordpress.com"
-    },
-*/
+{
+nom:"BUDDY MOVIE REPACK",
+url:"https://buddy-movierepack.blogspot.com"
+},
 
-    {
-        nom: "BUDDY MOVIE REPACK",
-        url: "https://buddy-movierepack.blogspot.com"
-    },
+{
+nom:"Bunker des inédits",
+url:"https://bunker-des-inedits.blogspot.com"
+},
 
-    {
-        nom: "Bunker des inédits",
-        url: "https://bunker-des-inedits.blogspot.com"
-    },
+{
+nom:"Les Chroniques d'Atreyu",
+url:"https://atreyucinema.blogspot.com"
+},
 
-    {
-        nom: "Les Chroniques d'Atreyu",
-        url: "https://atreyucinema.blogspot.com"
-    },
+{
+nom:"Ciné-Bis-Art",
+url:"https://humungus-cinebisart.blogspot.com"
+},
 
-    {
-        nom: "Ciné-Bis-Art",
-        url: "https://humungus-cinebisart.blogspot.com"
-    },
+{
+nom:"La Cinémathèque du Bis",
+url:"https://lacinemathequedubis.blogspot.com"
+},
 
-    /*{
-        nom: "Un Cinéma Respecté by DVD2FAN",
-        url: "https://cinerespect.blogspot.com"
-    },
-    */
+{
+nom:"Cineseptbis",
+url:"https://cineseptbis.blogspot.com"
+},
 
-    {
-        nom: "La Cinémathèque du Bis",
-        url: "https://lacinemathequedubis.blogspot.com"
-    },
+{
+nom:"CONTREBANDE VHS",
+url:"https://contrebandevhs.blogspot.com"
+},
 
-    {
-        nom: "Cineseptbis",
-        url: "https://cineseptbis.blogspot.com"
-    },
+{
+nom:"La crypte du Repack",
+url:"https://lacryptedurepack.blogspot.com"
+},
 
-    {
-        nom: "CONTREBANDE VHS",
-        url: "https://contrebandevhs.blogspot.com"
-    },
+{
+nom:"four tous 2",
+url:"https://nenard1974.blogspot.com"
+},
 
-    {
-        nom: "La crypte du Repack",
-        url: "https://lacryptedurepack.blogspot.com"
-    },
+{
+nom:"hdmovpremier",
+url:"https://hdmovpremier.toile-libre.org",
+type:"wordpress"
+},
 
-    {
-        nom: "four tous 2",
-        url: "https://nenard1974.blogspot.com"
-    },
+{
+nom:"HD PREMIERE",
+url:"https://hdmoviespremier.blogspot.com"
+},
 
+{
+nom:"Indianagilles",
+url:"https://indianagilles.blogspot.com"
+},
 
-    {
-        nom: "hdmovpremier",
-        url: "https://hdmovpremier.toile-libre.org",
-        type: "wordpress"
-    },
+{
+nom:"Les inédits du cinema bis en VOSTFR",
+url:"https://legrenierducinemabis.blogspot.com"
+},
 
+{
+nom:"Kevenz Repack",
+url:"https://kevenzrepack.blogspot.com"
+},
 
-    {
-        nom: "HD PREMIERE",
-        url: "https://hdmoviespremier.blogspot.com"
-    },
+{
+nom:"le paradis du cinéphile",
+url:"https://leparadisdufilm.blogspot.com"
+},
 
-    {
-        nom: "Indianagilles",
-        url: "https://indianagilles.blogspot.com"
-    },
+{
+nom:"le steadyblog",
+url:"https://steadyleblog.blogspot.com"
+},
 
-    {
-        nom: "Les inédits du cinema bis en VOSTFR",
-        url: "https://legrenierducinemabis.blogspot.com"
-    },
+{
+nom:"Supercalifragilisticexpialidocious",
+url:"https://radisnoiretblancetencouleur.blogspot.com"
+},
 
-    {
-        nom: "Kevenz Repack",
-        url: "https://kevenzrepack.blogspot.com"
-    },
+{
+nom:"La télé d'avant",
+url:"https://teledavant.blogspot.com"
+},
 
-    {
-        nom: "le paradis du cinéphile",
-        url: "https://leparadisdufilm.blogspot.com"
-    },
-    {
-        nom: "le steadyblog",
-        url: "https://steadyleblog.blogspot.com"
-    },
+{
+nom:"Le Temple Du Film",
+url:"https://filmdutemple.blogspot.com"
+},
 
-    {
-        nom: "Supercalifragilisticexpialidocious",
-        url: "https://radisnoiretblancetencouleur.blogspot.com"
-    },
+{
+nom:"Terence Hill Collection",
+url:"https://terencehillcollection.blogspot.com"
+},
 
-    {
-        nom: "La télé d'avant",
-        url: "https://teledavant.blogspot.com"
-    },
+{
+nom:"L'Univers du Fantastique et de la Science-Fiction",
+url:"https://muaddib-sci-fi.blogspot.com"
+},
 
-    {
-        nom: "Le Temple Du Film",
-        url: "https://filmdutemple.blogspot.com"
-    },
-
-    {
-        nom: "Terence Hill Collection",
-        url: "https://terencehillcollection.blogspot.com"
-    },
-
-    {
-        nom: "L'Univers du Fantastique et de la Science-Fiction",
-        url: "https://muaddib-sci-fi.blogspot.com"
-    },
-
-    {
-        nom: "Warning Zone",
-        url: "https://stalkerjany.blogspot.com"
-    }
-
-// ajouter ici d'autres blogs
+{
+nom:"Warning Zone",
+url:"https://stalkerjany.blogspot.com"
+}
 
 ];
 
@@ -262,17 +247,13 @@ const cache = {};
 function nettoyer(texte){
 
 return (texte || "")
-
 .toLowerCase()
-
 .normalize("NFD")
-
 .replace(/[\u0300-\u036f]/g,"");
 
 }
 
-
-function chargerFlux(blog,start){
+    function chargerFlux(blog,start){
 
 return new Promise((resolve,reject)=>{
 
@@ -299,89 +280,42 @@ const articles = data.feed?.entry || [];
 
 resolve({
 
-    articles,
+articles,
 
-    total: Number(
-        data.feed?.openSearch$totalResults?.$t || 0
-    )
+total:Number(
+data.feed?.openSearch$totalResults?.$t || 0
+)
 
 });
 
 
 };
 
-    async function chargerWordPress(blog, terme){
-
-    const url =
-    blog.url +
-    "/wp-json/wp/v2/posts?search=" +
-    encodeURIComponent(terme) +
-    "&per_page=100";
-
-
-    const reponse = await fetch(url);
-
-    if(!reponse.ok){
-
-        throw new Error(
-            "Impossible de charger " + blog.nom
-        );
-
-    }
-
-
-    const posts = await reponse.json();
-
-
-    return posts.map(post => ({
-
-        title:{
-            $t: post.title.rendered
-        },
-
-        summary:{
-            $t: post.excerpt.rendered
-        },
-
-        link:[
-            {
-                rel:"alternate",
-                href:post.link
-            }
-        ]
-
-    }));
-
-}
-
 
 script.onerror=function(){
-
 
 delete window[callback];
 
 script.remove();
 
-
 reject(
-    new Error("Impossible de charger "+blog.nom)
+new Error("Impossible de charger "+blog.nom)
 );
-
 
 };
 
 
 script.src =
 
-blog.url+
+blog.url +
 
-"/feeds/posts/default?alt=json-in-script"+
+"/feeds/posts/default?alt=json-in-script" +
 
-"&max-results="+MAX_RESULTS+
+"&max-results=" + MAX_RESULTS +
 
-"&start-index="+start+
+"&start-index=" + start +
 
-"&callback="+callback;
+"&callback=" + callback;
 
 
 document.body.appendChild(script);
@@ -389,285 +323,420 @@ document.body.appendChild(script);
 
 });
 
+}
+
+
+
+
+// Gestion WordPress (HD Movies Premier)
+
+async function chargerWordPress(blog, terme){
+
+
+const url =
+
+blog.url +
+
+"/wp-json/wp/v2/posts?search=" +
+
+encodeURIComponent(terme) +
+
+"&per_page=100";
+
+
+
+const reponse = await fetch(url);
+
+
+
+if(!reponse.ok){
+
+throw new Error(
+"Impossible de charger " + blog.nom
+);
 
 }
+
+
+
+const posts = await reponse.json();
+
+
+
+return posts.map(post=>({
+
+
+title:{
+$t:post.title.rendered
+},
+
+
+summary:{
+$t:post.excerpt.rendered
+},
+
+
+link:[
+
+{
+rel:"alternate",
+href:post.link
+}
+
+]
+
+
+}));
+
+
+}
+
+
+
 
 
 
 async function chargerTout(blog){
 
 
-    // Utilise le cache si le blog a déjà été chargé
+if(cache[blog.nom]){
 
-    if(cache[blog.nom]){
-
-        return cache[blog.nom];
-
-    }
-
-
-    let tous = [];
-
-    let index = 1;
-
-    let total = Infinity;
-
-
-
-    while(index <= total){
-
-
-        const page = await chargerFlux(blog,index);
-
-
-        tous.push(...page.articles);
-
-
-        total = page.total;
-
-
-        console.log(
-            blog.nom,
-            tous.length,
-            "/",
-            total
-        );
-
-
-        // Dernière page
-
-        if(page.articles.length === 0){
-
-            break;
-
-        }
-
-
-        index += MAX_RESULTS;
-
-
-    }
-
-
-    cache[blog.nom] = tous;
-
-
-    return tous;
-
+return cache[blog.nom];
 
 }
 
 
 
-async function chercher(){
+let tous=[];
 
+let index=1;
 
-    const terme = document
-        .getElementById("recherche")
-        .value
-        .trim();
-
-
-
-    if(!terme){
-
-        return;
-
-    }
+let total=Infinity;
 
 
 
-    const status =
-        document.getElementById("status");
-
-
-    const resultat =
-        document.getElementById("resultats");
+while(index<=total){
 
 
 
-    resultat.innerHTML = "";
-
-
-    status.innerHTML =
-        "Chargement des blogs...";
+const page = await chargerFlux(blog,index);
 
 
 
-    const listes = await Promise.all(
+tous.push(...page.articles);
 
-    blogs.map(blog => {
 
-        if(blog.type === "wordpress"){
 
-            return chargerWordPress(blog, terme);
+total=page.total;
 
-        }
 
-        else{
 
-            return chargerTout(blog);
+console.log(
 
-        }
+blog.nom,
 
-    })
+tous.length,
+
+"/",
+
+total
 
 );
 
 
-    status.innerHTML =
-        "Recherche en cours...";
+
+if(page.articles.length===0){
+
+break;
+
+}
 
 
 
-    let html = "";
+index += MAX_RESULTS;
+
+
+}
 
 
 
-    const mots = nettoyer(terme)
-
-    .split(/\s+/)
-
-    .filter(m => m.length > 0);
-
-    blogs.forEach((blog,index)=>{
+cache[blog.nom]=tous;
 
 
-        const articles = listes[index];
+return tous;
 
 
-        const trouves = articles.filter(article=>{
+}
+
+async function chercher(){
 
 
-            let titre =
-                article.title?.$t || "";
-
-
-            let contenu =
-                article.summary?.$t || "";
+const terme = document
+.getElementById("recherche")
+.value
+.trim();
 
 
 
-            let texte =
-                titre + " " + contenu;
+if(!terme){
+
+return;
+
+}
 
 
 
-            if(article.category){
+const status =
+document.getElementById("status");
 
 
-                texte += " " +
-                    article.category
-                    .map(c=>c.term)
-                    .join(" ");
-
-
-            }
+const resultat =
+document.getElementById("resultats");
 
 
 
-            const texteNettoye =
-                nettoyer(texte);
+resultat.innerHTML="";
 
 
 
-            return mots.every(
-                mot => texteNettoye.includes(mot)
-            );
-
-
-        });
+status.innerHTML =
+"Chargement des blogs...";
 
 
 
-        if(trouves.length){
+
+
+const listes = await Promise.all(
+
+blogs.map(blog=>{
+
+
+if(blog.type==="wordpress"){
+
+
+return chargerWordPress(blog,terme);
+
+
+}
+
+else{
+
+
+return chargerTout(blog);
+
+
+}
+
+
+})
+
+);
+
+
+
+status.innerHTML =
+"Recherche en cours...";
+
+
+
+let html="";
+
+
+
+const mots = nettoyer(terme)
+
+.split(/\s+/)
+
+.filter(m=>m.length>0);
+
+
+
+
+
+blogs.forEach((blog,index)=>{
+
+
+const articles=listes[index];
+
+
+
+const trouves = articles.filter(article=>{
+
+
+let titre =
+article.title?.$t || "";
+
+
+
+let contenu =
+article.summary?.$t || "";
+
+
+
+let texte =
+titre + " " + contenu;
+
+
+
+if(article.category){
+
+
+texte += " " +
+
+article.category
+
+.map(c=>c.term)
+
+.join(" ");
+
+
+}
+
+
+
+const texteNettoye =
+nettoyer(texte);
+
+
+
+return mots.every(
+
+mot => texteNettoye.includes(mot)
+
+);
+
+
+
+});
+
+
+
+
+
+if(trouves.length){
+
 
 html += `
+
 <div class="resultat">
 
 <div class="blog">
+
 ${blog.nom}
+
 <span class="compteur">
+
 (${trouves.length} résultat(s))
+
 </span>
+
 </div>
 
 `;
 
+
 }
+
+
+
 
 
 trouves.forEach(article=>{
 
 
-    let lien = "";
+
+let lien="";
 
 
-    if(article.link){
 
-        article.link.forEach(l=>{
-
-            if(l.rel==="alternate"){
-
-                lien = l.href;
-
-            }
-
-        });
-
-    }
+if(article.link){
 
 
-    html += `
+article.link.forEach(l=>{
+
+
+if(l.rel==="alternate"){
+
+
+lien=l.href;
+
+
+}
+
+
+});
+
+
+}
+
+
+
+
+
+html += `
 
 <div class="film">
 
 <a href="${lien}" target="_blank">
+
 ${article.title?.$t || "Sans titre"}
+
 </a>
 
 </div>
 
 `;
 
+
 });
+
+
 
 
 if(trouves.length){
 
+
 html += `
+
 </div>
+
 `;
 
 }
 
 
 
-    });
+});
 
 
 
 
-    status.innerHTML =
+status.innerHTML =
 
-        "Terminé — " +
+"Terminé — " +
 
-        listes.reduce(
-            (total,articles)=>
-            total+articles.length,
-            0
-        ) +
+listes.reduce(
 
-        " articles indexés";
+(total,articles)=>
+
+total+articles.length,
+
+0
+
+)
+
++
+
+" articles indexés";
 
 
 
 
-    resultat.innerHTML =
+resultat.innerHTML =
 
-        html ||
+html ||
 
-        "<div class='resultat'>Aucun résultat.</div>";
+"<div class='resultat'>Aucun résultat.</div>";
 
 
 
@@ -679,5 +748,5 @@ html += `
 
 </body>
 
-
 </html>
+
