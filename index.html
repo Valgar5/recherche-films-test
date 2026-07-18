@@ -316,21 +316,26 @@ data.feed?.openSearch$totalResults?.$t || 0
 
 
 script.onerror=function(){
+
     if(termine) return;
 
-termine = true;
+    termine = true;
 
-clearTimeout(timer);
+    clearTimeout(timer);
 
-delete window[callback];
+    console.log("ERREUR IGNORÉE :", blog.nom);
 
-script.remove();
+    delete window[callback];
 
-reject(
-new Error("Impossible de charger "+blog.nom)
-);
+    script.remove();
+
+    resolve({
+        articles:[],
+        total:0
+    });
 
 };
+
 
 
 script.src =
