@@ -536,27 +536,24 @@ const listes = await Promise.all(
 
 blogs.map(blog=>{
 
-
 if(blog.type==="wordpress"){
 
-
 return chargerWordPress(blog,terme);
-
 
 }
 
 else{
 
-
 return chargerTout(blog);
 
-
 }
-
 
 })
 
 );
+
+
+console.log("LISTES COMPLETES :", listes);
 
 
 
